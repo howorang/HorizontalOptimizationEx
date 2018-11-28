@@ -43,7 +43,6 @@ public class SetBenchmark {
     @State(Scope.Benchmark)
     @Warmup(iterations = 0)
     @Measurement(iterations = 1)
-    @BenchmarkMode(Mode.SingleShotTime)
     @Fork(1)
     public abstract static class AbstractSetBenchmark {
 
@@ -54,7 +53,7 @@ public class SetBenchmark {
 
         public abstract Collection<Integer> getTestSample();
 
-        @Setup
+        @Setup(Level.Invocation)
         public void setup() {
             setToTest = getTestSet();
             setToTest.addAll(getTestSample());
@@ -109,26 +108,26 @@ public class SetBenchmark {
         }
     }
 
-    public static class h10 extends HashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet10;
-        }
-    }
-
-    public static class h100 extends HashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet100;
-        }
-    }
-
-    public static class h1k extends HashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1k;
-        }
-    }
+//    public static class h10 extends HashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet10;
+//        }
+//    }
+//
+//    public static class h100 extends HashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet100;
+//        }
+//    }
+//
+//    public static class h1k extends HashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1k;
+//        }
+//    }
 
     public static class h100k extends HashSetBenchmark {
         @Override
@@ -137,34 +136,34 @@ public class SetBenchmark {
         }
     }
 
-    public static class h1mil extends HashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1mil;
-        }
-    }
-
-
-    public static class l10 extends LinkedHashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet10;
-        }
-    }
-
-    public static class l100 extends LinkedHashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet100;
-        }
-    }
-
-    public static class l1k extends LinkedHashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1k;
-        }
-    }
+//    public static class h1mil extends HashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1mil;
+//        }
+//    }
+//
+//
+//    public static class l10 extends LinkedHashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet10;
+//        }
+//    }
+//
+//    public static class l100 extends LinkedHashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet100;
+//        }
+//    }
+//
+//    public static class l1k extends LinkedHashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1k;
+//        }
+//    }
 
     public static class l100k extends LinkedHashSetBenchmark {
         @Override
@@ -173,34 +172,34 @@ public class SetBenchmark {
         }
     }
 
-    public static class l1mil extends LinkedHashSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1mil;
-        }
-    }
-
-
-    public static class t10 extends TreeSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet10;
-        }
-    }
-
-    public static class t100 extends TreeSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet100;
-        }
-    }
-
-    public static class t1k extends TreeSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1k;
-        }
-    }
+//    public static class l1mil extends LinkedHashSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1mil;
+//        }
+//    }
+//
+//
+//    public static class t10 extends TreeSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet10;
+//        }
+//    }
+//
+//    public static class t100 extends TreeSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet100;
+//        }
+//    }
+//
+//    public static class t1k extends TreeSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1k;
+//        }
+//    }
 
     public static class t100k extends TreeSetBenchmark {
         @Override
@@ -209,10 +208,10 @@ public class SetBenchmark {
         }
     }
 
-    public static class t1mil extends TreeSetBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1mil;
-        }
-    }
+//    public static class t1mil extends TreeSetBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1mil;
+//        }
+//    }
 }

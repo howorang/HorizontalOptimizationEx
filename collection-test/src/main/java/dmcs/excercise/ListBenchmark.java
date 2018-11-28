@@ -44,7 +44,6 @@ public class ListBenchmark {
     @State(Scope.Benchmark)
     @Warmup(iterations = 0)
     @Measurement(iterations = 1)
-    @BenchmarkMode(Mode.SingleShotTime)
     @Fork(1)
     public abstract static class AbstractListBenchmark {
 
@@ -55,7 +54,7 @@ public class ListBenchmark {
 
         public abstract Collection<Integer> getTestSample();
 
-        @Setup
+        @Setup(Level.Invocation)
         public void setup() {
             listToTest = getTestList();
             listToTest.addAll(getTestSample());
@@ -73,7 +72,7 @@ public class ListBenchmark {
 
         @Benchmark
         public void benchAddRandom() {
-            listToTest.add(random.nextInt(testSample.size()));
+            listToTest.add(random.nextInt(listToTest.size() - 1));
         }
 
         @Benchmark
@@ -83,7 +82,7 @@ public class ListBenchmark {
 
         @Benchmark
         public void removeFromEnd() {
-            listToTest.remove(listToTest.size());
+            listToTest.remove(listToTest.size() -1 );
         }
 
         @Benchmark
@@ -94,7 +93,7 @@ public class ListBenchmark {
         @Benchmark
         public void browseWithIndexes() {
             int current;
-            for (int i = 0; i < 500; i++) {
+            for (int i = 0; i < listToTest.size(); i++) {
                 current = listToTest.get(i);
             }
         }
@@ -123,26 +122,26 @@ public class ListBenchmark {
         }
     }
 
-    public static class h10 extends ArrayListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet10;
-        }
-    }
-
-    public static class h100 extends ArrayListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet100;
-        }
-    }
-
-    public static class h1k extends ArrayListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1k;
-        }
-    }
+//    public static class h10 extends ArrayListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet10;
+//        }
+//    }
+//
+//    public static class h100 extends ArrayListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet100;
+//        }
+//    }
+//
+//    public static class h1k extends ArrayListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1k;
+//        }
+//    }
 
     public static class h100k extends ArrayListBenchmark {
         @Override
@@ -151,34 +150,34 @@ public class ListBenchmark {
         }
     }
 
-    public static class h1mil extends ArrayListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1mil;
-        }
-    }
+//    public static class h1mil extends ArrayListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1mil;
+//        }
+//    }
 
 
-    public static class l10 extends LinkedListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet10;
-        }
-    }
-
-    public static class l100 extends LinkedListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet100;
-        }
-    }
-
-    public static class l1k extends LinkedListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1k;
-        }
-    }
+//    public static class l10 extends LinkedListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet10;
+//        }
+//    }
+//
+//    public static class l100 extends LinkedListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet100;
+//        }
+//    }
+//
+//    public static class l1k extends LinkedListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1k;
+//        }
+//    }
 
     public static class l100k extends LinkedListBenchmark {
         @Override
@@ -187,10 +186,10 @@ public class ListBenchmark {
         }
     }
 
-    public static class l1mil extends LinkedListBenchmark {
-        @Override
-        public Collection<Integer> getTestSample() {
-            return testSet1mil;
-        }
-    }
+//    public static class l1mil extends LinkedListBenchmark {
+//        @Override
+//        public Collection<Integer> getTestSample() {
+//            return testSet1mil;
+//        }
+//    }
 }

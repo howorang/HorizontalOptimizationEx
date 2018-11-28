@@ -58,7 +58,7 @@ public class ReadBenchmark {
     private static void readWithBuffered(String filePath) {
         try(FileInputStream fileInputStream = new FileInputStream(filePath);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
-          //  byte[] bytes = bufferedInputStream.readAllBytes();
+            byte[] bytes = bufferedInputStream.readAllBytes();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
