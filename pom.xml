@@ -12,6 +12,8 @@
     <modules>
         <module>read-save</module>
         <module>collection-test</module>
+        <module>cache</module>
+        <module>reflection</module>
     </modules>
 
 </project>
