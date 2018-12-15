@@ -2,13 +2,15 @@ package dmcs.excercise.references;
 
 import java.lang.ref.*;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.WeakHashMap;
 
 public class Main {
-    public static void main(String[] args) {
-        testPhantom();
-
+    public static void main(String[] args) throws InterruptedException {
+       testSoft();
+       // testWeak();
+     //  testPhantom();
     }
 
     private static void testWeak() {
@@ -20,24 +22,28 @@ public class Main {
             objects[i] = randomString;
             refs[i] = new WeakReference(randomString);
         }
-
+        Arrays.fill(objects, null);
+        System.gc();
         int cleanedCount = 0;
         for (WeakReference<String> i : refs) {
             if (i.get() == null) {
                 cleanedCount++;
             }
         }
-        System.out.println(String.valueOf((cleanedCount/1024f)*100) + "% refs cleared");
+        System.out.println(String.valueOf((cleanedCount/objectCount)*100) + "% refs cleared");
     }
 
-    private static void testSoft() {
-        int objectCount = 2048;
-        Object[] objects = new Object[objectCount];
+    private static void testSoft() throws InterruptedException {
+        int objectCount = 1000000;
         SoftReference[] refs = new SoftReference[objectCount];
+        ReferenceQueue<String> referenceQueue = new ReferenceQueue<>();
         for (int i = 0; i < objectCount; i++) {
             String randomString = getRandomString();
-            objects[i] = randomString;
-            refs[i] = new SoftReference(randomString);
+            Thread.sleep(1);
+            refs[i] = new SoftReference(randomString, referenceQueue);
+            while (referenceQueue.poll() != null) {
+                System.out.println("Cleaned!");
+            }
         }
     }
 
@@ -52,19 +58,20 @@ public class Main {
             objects[i] = randomString;
             refs[i] = new PhantomReference(randomString, referenceQueue);
         }
-
         objects = null;
         System.gc();
-
+        int cleanedCount = 0;
         for (PhantomReference p : refs) {
-            System.out.println(p.isEnqueued());
+            cleanedCount++;
         }
-
-        Reference ref = null;
+        System.out.println(String.valueOf((cleanedCount/objectCount)*100) + "% refs cleared");
+        Reference ref;
+        int finalizedCount = 0;
         while ((ref = referenceQueue.poll()) != null) {
-            System.out.println("Finilizing");
+            finalizedCount++;
             ref.clear();
         }
+        System.out.println(String.valueOf((finalizedCount/objectCount)*100) + "% refs finalized");
     }
 
     private static String getRandomString() {
