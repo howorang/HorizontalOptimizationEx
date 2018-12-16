@@ -19,11 +19,6 @@ public class Main {
             new Data(6, "June")
     };
     public static void main(String args[]) {
-        final int N = 250000;
-        Main x;
-       // Timer t = new Timer();
-        for (int i = 1; i <= N; i++)
-            x = new Main();
-      //  t.print("I am inefficient");
+        System.out.println("I am efficient");
     }
 }

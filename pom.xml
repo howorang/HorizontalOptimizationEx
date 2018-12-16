@@ -17,6 +17,7 @@
         <module>dynamic-proxy</module>
         <module>references</module>
         <module>optimizing</module>
+        <module>memory-leaks</module>
     </modules>
 
 </project>
