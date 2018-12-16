@@ -18,6 +18,7 @@
         <module>references</module>
         <module>optimizing</module>
         <module>memory-leaks</module>
+        <module>recursive</module>
     </modules>
 
 </project>
